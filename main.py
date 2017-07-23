@@ -1,0 +1,26 @@
+import os
+
+import discord
+from discord.ext import commands
+
+command_prefix = '~'
+description = 'My own weeb bot'
+cogs = ['cogs.osu']
+
+class Akane(commands.AutoShardedBot):
+
+	def __init__(self, command_prefix, **options):
+		super().__init__(command_prefix, **options)
+
+	@staticmethod
+	async def on_read():
+		print("Online!")
+
+
+if __name__ == '__main__':
+	bot = Akane(command_prefix=command_prefix, description=description)
+
+	for cog in cogs:
+		bot.load_extension(cog)
+
+	bot.run(os.environ['token'])
