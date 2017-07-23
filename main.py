@@ -3,6 +3,8 @@ import os
 import discord
 from discord.ext import commands
 
+import config
+
 command_prefix = '~'
 description = 'My own weeb bot'
 cogs = ['cogs.osu']
@@ -13,7 +15,7 @@ class Akane(commands.AutoShardedBot):
 		super().__init__(command_prefix, **options)
 
 	@staticmethod
-	async def on_read():
+	async def on_ready():
 		print("Online!")
 
 
@@ -23,4 +25,4 @@ if __name__ == '__main__':
 	for cog in cogs:
 		bot.load_extension(cog)
 
-	bot.run(os.environ['token'])
+	bot.run(config.bot_token)
