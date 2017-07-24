@@ -5,6 +5,8 @@ from discord.ext import commands
 
 import config
 
+genres = ['any', 'unspecified', 'video game', 'anime', 'rock', 'pop', 'other', 'novelty', '', 'hip hop', 'electronic']
+
 class Osu:
 	def __init__(self, bot):
 		self.bot = bot
@@ -18,41 +20,77 @@ class Osu:
 		name = ctx.message.content.split(" ")[1]
 		url = 'https://osu.ppy.sh/api/get_user'
 		params = {'k': config.osu_key, 'u': name}
-		data = {}
-
+		
 		with requests.get(url, params=params) as resp:
-
 			if not resp.json():
 				return await ctx.send("Username not found")
-
 			resp = resp.json()[0]
-			
-			data['pp'] = resp['pp_raw']
-			data['name'] = resp['username']
-			data['id'] = resp['user_id']
-			data['rank'] = resp['pp_rank']
-			data['country'] = resp['country']
-			data['country_rank'] = resp['pp_country_rank']
+
+		title = f'{resp["username"]}\'s profile'
+		url = f'https://osu.ppy.sh/u/{resp["user_id"]}'
+		thumb = f'https://a.ppy.sh/{resp["user_id"]}'
 		
 		await ctx.send(embed=discord.Embed(
 			colour=discord.Colour.red(), 
-			title=f'{data["name"]}\'s profile',
-			description='  '
+			title=title,
+			url=url
 		 ).set_thumbnail(
-		 	url=f'https://a.ppy.sh/{data["id"]}'
+		 	url=thumb
 		 )
 		.add_field(
 			name='PP',
-			value=f'{data["pp"]}'
+			value=resp["pp_raw"]
 		).add_field(
 			name='Rank',
-			value=f'{data["rank"]}'
+			value=resp["pp_rank"]
 		).add_field(
 			name='Country',
-			value=f'{data["country"]}'
+			value=resp["country"]
 		).add_field(
 			name='Country rank',
-			value=f'{data["country_rank"]}'
+			value=resp["pp_country_rank"]
+		))
+
+
+	@commands.command(pass_context=True)
+	async def beatmap(self, ctx):
+		name = ctx.message.content.split(" ")[1]
+		url = 'https://osu.ppy.sh/api/get_beatmaps'
+		params = {'k': config.osu_key, 'b': name}
+
+		with requests.get(url, params=params) as resp:
+			if not resp.json():
+				return await ctx.send("Beatmap not found")
+			resp = resp.json()[0]
+
+		url = f'https://osu.ppy.sh/b/{resp["beatmap_id"]}'
+		difficulty = round(float(resp['difficultyrating']), 2)
+		status = 'ranked' if int(resp['approved']) == 1 else 'not ranked'
+		length = str(int(resp['total_length']) / 60)
+		genre = genres[int(resp['genre_id'])]
+
+		await ctx.send(embed=discord.Embed(
+			url=url,
+			colour=discord.Colour.red(), 
+			title=resp["title"]
+		 ).add_field(
+			name='Difficulty',
+			value=difficulty
+		).add_field(
+			name='BPM',
+			value=resp["bpm"]
+		).add_field(
+			name='Length',
+			value=f'{length} minutes'
+		).add_field(
+			name='Status',
+			value=status
+		).add_field(
+			name='Genre',
+			value=genre
+		).add_field(
+			name='Creator',
+			value=resp["creator"]
 		))
 
 def setup(bot):
