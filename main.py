@@ -7,7 +7,7 @@ import config
 
 command_prefix = '~'
 description = 'My own weeb bot'
-cogs = ['cogs.osu', 'cogs.mal']
+cogs = ['cogs.osu', 'cogs.mal', 'cogs.picture']
 
 class Akane(commands.AutoShardedBot):
 

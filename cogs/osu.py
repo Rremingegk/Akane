@@ -18,6 +18,12 @@ class Osu:
 
 	@osu.command(pass_context=True)
 	async def player(self, ctx, name: str):
+		""" Find osu! player by given name
+		
+		**Example**:
+		~osu player Cookiezi
+		
+		"""
 		url = 'https://osu.ppy.sh/api/get_user'
 		params = {'k': config.osu_key, 'u': name}
 		
@@ -37,7 +43,7 @@ class Osu:
 		 	url=thumb
 		 ).set_author(
 		 	name=title,
-		 	icon_url=thumb
+		 	icon_url='https://i.ppy.sh/528affadbdddcabaa861973fc5aa6ecdd9beb7ee/687474703a2f2f692e696d6775722e636f6d2f50553876382e706e67'
 		 )
 		.add_field(
 			name='PP',
@@ -56,6 +62,12 @@ class Osu:
 
 	@osu.command(pass_context=True)
 	async def beatmap(self, ctx, name: str):
+		""" Find osu! beatmap by given id
+		
+		**Example**:
+		~osu beatmap 1266886
+		
+		"""
 		url = 'https://osu.ppy.sh/api/get_beatmaps'
 		params = {'k': config.osu_key, 'b': name}
 
@@ -75,7 +87,7 @@ class Osu:
 			colour=discord.Colour.red(), 
 		 ).set_author(
 		 	name=resp["title"],
-		 	icon_url=self.bot.user.avatar_url
+		 	icon_url='https://i.ppy.sh/528affadbdddcabaa861973fc5aa6ecdd9beb7ee/687474703a2f2f692e696d6775722e636f6d2f50553876382e706e67'
 		 ).add_field(
 			name='Difficulty',
 			value=difficulty
@@ -98,6 +110,12 @@ class Osu:
 
 	@osu.command(pass_context=True)
 	async def beatmapset(self, ctx, name: str):
+		""" Find osu! beatmapset by given id
+		
+		**Example**:
+		~osu beatmapset 599457
+		
+		"""
 		url = 'https://osu.ppy.sh/api/get_beatmaps'
 		params = {'k': config.osu_key, 's': name}
 
@@ -113,7 +131,7 @@ class Osu:
 			url=url,
 		).set_author(
 			name=resp[0]['title'],
-			icon_url=self.bot.user.avatar_url
+			icon_url='https://i.ppy.sh/528affadbdddcabaa861973fc5aa6ecdd9beb7ee/687474703a2f2f692e696d6775722e636f6d2f50553876382e706e67'
 		).set_footer(
 			text='acces these beatmaps individually with ~osu beatmap <id>'
 		)

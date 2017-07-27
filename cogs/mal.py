@@ -15,6 +15,12 @@ class Mal:
 
 	@commands.command(pass_context=True)
 	async def anime(self, ctx):
+		""" Find anime on MyAnimeList by given name
+		
+		**Example**:
+		~anime Toradora!
+		
+		"""
 		name = ctx.message.content.split(" ")[1:]
 		if not name:
 			return await ctx.send("No anime specified")
@@ -60,6 +66,12 @@ class Mal:
 
 	@commands.command(pass_context=True)
 	async def manga(self, ctx):
+		""" Find manga on MyAnimeList by given name
+		
+		**Example**:
+		~manga Sakurasou no pet na Kanojo
+		
+		"""
 		name = ctx.message.content.split(" ")[1:]
 		if not name:
 			return await ctx.send("No manga specified")
@@ -102,6 +114,8 @@ class Mal:
 			name="Description",
 			value=synopsis
 		))
+
+	
 
 def setup(bot):
 	bot.add_cog(Mal(bot))
