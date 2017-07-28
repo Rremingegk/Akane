@@ -15,24 +15,24 @@ class Picture:
 	@commands.group(pass_context=True)
 	async def reddit(self, ctx):
 		if ctx.invoked_subcommand is None:
-			await ctx.send('commands available to reddit: \n ~reddit pic &')
+			await self.bot.say('commands available to reddit: \n ~reddit pic &')
 
 	@reddit.command(pass_context=True)
 	async def pic(self, ctx, sub: str):
 		""" Gets a random picture of the last 50 posts of the hot page from the subreddit provided 
 		
 		**Example**:
-		!reddit pic awwnime
+		~reddit pic awwnime
 		
 		"""
 		# sub = ctx.message.content.split(" ")[1]
 		try:
 			submissions = list(reddit.subreddit(sub).hot(limit=50))
 		except:
-			return await ctx.send('Subreddit not found')
+			return await self.bot.say('Subreddit not found')
 		
 		if len(submissions) == 0:
-			return await ctx.send('Not any images on this sub')
+			return await self.bot.say('Not any images on this sub')
 		
 		rand = randint(0, 49) if len(submissions) >= 50 else randint(0, len(submissions))
 		picture = submissions[rand].url
@@ -44,7 +44,7 @@ class Picture:
 			picture += '.jpg'
 
 		print(picture)
-		await ctx.send(embed=discord.Embed(
+		await self.bot.say(embed=discord.Embed(
 		).set_image(
 			url=picture
 		).set_footer(

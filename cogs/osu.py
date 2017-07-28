@@ -14,7 +14,7 @@ class Osu:
 	@commands.group(pass_context=True)
 	async def osu(self, ctx):
 		if ctx.invoked_subcommand is None:
-			await ctx.send('commands available to osu!: \n ~osu player & ~osu beatmap')
+			await self.bot.say('commands available to osu!: \n ~osu player & ~osu beatmap')
 
 	@osu.command(pass_context=True)
 	async def player(self, ctx, name: str):
@@ -29,14 +29,14 @@ class Osu:
 		
 		with requests.get(url, params=params) as resp:
 			if not resp.json():
-				return await ctx.send("Username not found")
+				return await self.bot.say("Username not found")
 			resp = resp.json()[0]
 
 		title = f'{resp["username"]}\'s profile'
 		url = f'https://osu.ppy.sh/u/{resp["user_id"]}'
 		thumb = f'https://a.ppy.sh/{resp["user_id"]}'
 		
-		await ctx.send(embed=discord.Embed(
+		await self.bot.say(embed=discord.Embed(
 			colour=discord.Colour.red(), 
 			url=url
 		 ).set_thumbnail(
@@ -73,7 +73,7 @@ class Osu:
 
 		with requests.get(url, params=params) as resp:
 			if not resp.json():
-				return await ctx.send("Beatmap not found")
+				return await self.bot.say("Beatmap not found")
 			resp = resp.json()[0]
 
 		url = f'https://osu.ppy.sh/b/{resp["beatmap_id"]}'
@@ -82,7 +82,7 @@ class Osu:
 		length = str(round(int(resp['total_length']) / 60, 2))
 		genre = genres[int(resp['genre_id'])]
 
-		await ctx.send(embed=discord.Embed(
+		await self.bot.say(embed=discord.Embed(
 			url=url,
 			colour=discord.Colour.red(), 
 		 ).set_author(
@@ -121,7 +121,7 @@ class Osu:
 
 		with requests.get(url, params=params) as resp:
 			if not resp.json():
-				return await ctx.send("Beatmap not found")
+				return await self.bot.say("Beatmap not found")
 			resp = resp.json()
 
 		url = f'https://osu.ppy.sh/s/{resp[0]["beatmapset_id"]}'
@@ -158,7 +158,7 @@ class Osu:
 			value=f'[Download](https://osu.ppy.sh/d/{resp[0]["beatmapset_id"]})'
 		)
 
-		await ctx.send(embed=embed)
+		await self.bot.say(embed=embed)
 
 def setup(bot):
 	bot.add_cog(Osu(bot))

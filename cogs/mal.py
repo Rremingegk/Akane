@@ -23,13 +23,13 @@ class Mal:
 		"""
 		name = ctx.message.content.split(" ")[1:]
 		if not name:
-			return await ctx.send("No anime specified")
+			return await self.bot.say("No anime specified")
 		name = "+".join(name)
 		url = f'https://myanimelist.net/api/anime/search.xml?q={name}'
 		
 		r = requests.get(url, auth=(config.mal_username, config.mal_password))
 		if not r.content:
-			return await ctx.send("Anime not found")
+			return await self.bot.say("Anime not found")
 		xml_obj = objectify.fromstring(r.content)
 		anime = xml_obj.entry[0] 
 
@@ -39,7 +39,7 @@ class Mal:
 		synopsis = synopsis[0:425] + '...'
 		url = f'https://myanimelist.net/anime/{anime.id.pyval}'
 		
-		await ctx.send(embed=discord.Embed(
+		await self.bot.say(embed=discord.Embed(
 			colour=discord.Colour.red(), 
 			url=url
 		).set_thumbnail(
@@ -74,13 +74,13 @@ class Mal:
 		"""
 		name = ctx.message.content.split(" ")[1:]
 		if not name:
-			return await ctx.send("No manga specified")
+			return await self.bot.say("No manga specified")
 		name = "+".join(name)
 		url = f'https://myanimelist.net/api/manga/search.xml?q={name}'
 		
 		r = requests.get(url, auth=(config.mal_username, config.mal_password))
 		if not r.content:
-			return await ctx.send("Manga not found")
+			return await self.bot.say("Manga not found")
 		xml_obj = objectify.fromstring(r.content)
 		manga = xml_obj.entry[0] 
 
@@ -90,7 +90,7 @@ class Mal:
 		synopsis = synopsis[0:425] + '...'
 		url = f'https://myanimelist.net/anime/{manga.id.pyval}'
 		
-		await ctx.send(embed=discord.Embed(
+		await self.bot.say(embed=discord.Embed(
 			colour=discord.Colour.red(), 
 			url=url
 		).set_thumbnail(

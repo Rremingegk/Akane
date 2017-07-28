@@ -2,14 +2,15 @@ import os
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import Bot
 
 import config
 
 command_prefix = '~'
 description = 'My own weeb bot'
-cogs = ['cogs.osu', 'cogs.mal', 'cogs.picture']
+cogs = ['cogs.osu', 'cogs.mal', 'cogs.reddit', 'cogs.radio']
 
-class Akane(commands.AutoShardedBot):
+class Akane(Bot):
 
 	def __init__(self, command_prefix, **options):
 		super().__init__(command_prefix, **options)
