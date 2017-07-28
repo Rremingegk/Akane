@@ -8,7 +8,7 @@ import config
 
 command_prefix = '~'
 description = 'My own weeb bot'
-cogs = ['cogs.osu', 'cogs.mal', 'cogs.reddit', 'cogs.radio']
+cogs = ['cogs.osu', 'cogs.mal', 'cogs.reddit', 'cogs.radio', 'cogs.util']
 
 class Akane(Bot):
 

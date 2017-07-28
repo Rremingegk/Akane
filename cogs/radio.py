@@ -30,6 +30,7 @@ class Radio:
 		~radio start <channel>
 		"""
 		voice = await self.bot.join_voice_channel(channel)
+		# opus stream http://listen.moe:9999/opus use for better bitrate maybe?
 		self.player = voice.create_ffmpeg_player("http://listen.moe:9999/stream", headers={"User-Agent": 'No user-agent yet.'})
 		self.player.start()
 
