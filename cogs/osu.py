@@ -13,6 +13,7 @@ class Osu:
 
 	@commands.group(pass_context=True)
 	async def osu(self, ctx):
+		""" Osu related commands """
 		if ctx.invoked_subcommand is None:
 			await self.bot.say('commands available to osu!: \n ~osu player & ~osu beatmap')
 
