@@ -15,7 +15,6 @@ class Radio:
 	def __init__(self, bot):
 		self.bot = bot
 		self.player = None
-		#self.volume = 100
 
 	@commands.group(pass_context=True)
 	async def radio(self, ctx):
@@ -31,7 +30,7 @@ class Radio:
 		"""
 		voice = await self.bot.join_voice_channel(channel)
 		# opus stream http://listen.moe:9999/opus use for better bitrate maybe?
-		self.player = voice.create_ffmpeg_player("http://listen.moe:9999/stream", headers={"User-Agent": 'No user-agent yet.'})
+		self.player = voice.create_ffmpeg_player("http://listen.moe:9999/stream", headers={"User-Agent": 'Discord bot Akane'})
 		self.player.start()
 
 	@radio.command(pass_context=True)
@@ -41,8 +40,6 @@ class Radio:
 		**Example**:
 		~radio pause
 		"""
-		# if not self.player:
-		# 	return await self.bot.say("Radio isn't running, start with !radio start <voice channel>")
 		self.player.pause()
 
 	@radio.command(pass_context=True)

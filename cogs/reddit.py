@@ -15,7 +15,6 @@ class Reddit:
 	@commands.group(pass_context=True)
 	async def reddit(self, ctx):
 		""" Commands related to reddit """
-		# sub = ctx.message.content.split(" ")[1]
 		if ctx.invoked_subcommand is None:
 			await self.bot.say('commands available to reddit: \n ~reddit pic &')
 
@@ -27,7 +26,6 @@ class Reddit:
 		~reddit pic awwnime
 		
 		"""
-		# sub = ctx.message.content.split(" ")[1]
 		try:
 			submissions = list(reddit.subreddit(sub).hot(limit=50))
 		except:
