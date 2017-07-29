@@ -13,7 +13,13 @@ class Mal:
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command(pass_context=True)
+	@commands.group(pass_context=True)
+	async def mal(self, ctx):
+		""" Commands to get anime/manga information from mal """
+		if ctx.invoked_subcommand is None:
+			await self.bot.say('That command does not exist in this group')
+
+	@mal.command(pass_context=True)
 	async def anime(self, ctx):
 		""" Find anime on MyAnimeList by given name
 		
@@ -21,12 +27,12 @@ class Mal:
 		~anime Toradora!
 		
 		"""
-		name = ctx.message.content.split(" ")[1:]
+		name = ctx.message.content.split(" ")[2:]
 		if not name:
 			return await self.bot.say("No anime specified")
 		name = "+".join(name)
 		url = f'https://myanimelist.net/api/anime/search.xml?q={name}'
-		
+
 		r = requests.get(url, auth=(config.mal_username, config.mal_password))
 		if not r.content:
 			return await self.bot.say("Anime not found")
@@ -62,9 +68,12 @@ class Mal:
 		).add_field(
 			name="Description",
 			value=synopsis
+		).set_footer(
+			text='\u200b',
+			icon_url='https://i.ppy.sh/6e0c2edb1f0930a7de9c92602bb4545ff7817c21/687474703a2f2f69636f6e732e6462302e66722f732f6d616c2e706e67'
 		))
 
-	@commands.command(pass_context=True)
+	@mal.command(pass_context=True)
 	async def manga(self, ctx):
 		""" Find manga on MyAnimeList by given name
 		
@@ -113,6 +122,9 @@ class Mal:
 		).add_field(
 			name="Description",
 			value=synopsis
+		).set_footer(
+			text='\u200b',
+			icon_url='https://i.ppy.sh/6e0c2edb1f0930a7de9c92602bb4545ff7817c21/687474703a2f2f69636f6e732e6462302e66722f732f6d616c2e706e67'
 		))
 
 	
