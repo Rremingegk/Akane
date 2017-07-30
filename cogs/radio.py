@@ -4,10 +4,10 @@ from functools import wraps
 
 def exists_check(func):
 	@wraps(func)
-	async def wrapped(self, ctx):
+	async def wrapped(self, ctx, *args):
 		if not self.player:
 			return await self.bot.say("Radio isn't running, start with ~radio start <voice channel>")
-		return await func(self, ctx)
+		return await func(self, ctx, *args)
 	return wrapped
 
 
