@@ -58,7 +58,7 @@ class Kitsu:
 		).set_thumbnail(
 		 	url=anime['attributes']['posterImage']['small']
 		).set_author(
-			name=anime['attributes']['titles']['en'],
+			name=anime['attributes']['titles']['en_jp'],
 			icon_url=anime['attributes']['posterImage']['small']
 		).add_field(
 			name='Community approval',
@@ -126,7 +126,7 @@ class Kitsu:
 		).set_thumbnail(
 		 	url=manga['attributes']['posterImage']['small']
 		).set_author(
-			name=manga['attributes']['titles']['en'],
+			name=manga['attributes']['titles']['en_jp'],
 			icon_url=manga['attributes']['posterImage']['small']
 		).add_field(
 			name='Community approval',
