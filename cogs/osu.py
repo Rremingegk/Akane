@@ -15,7 +15,7 @@ class Osu:
 	async def osu(self, ctx):
 		""" Osu related commands """
 		if ctx.invoked_subcommand is None:
-			await self.bot.say('commands available to osu!: \n ~osu player & ~osu beatmap')
+			await self.bot.say('That command does not exist in this group')
 
 	@osu.command(pass_context=True)
 	async def player(self, ctx, name: str):

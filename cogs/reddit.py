@@ -16,7 +16,7 @@ class Reddit:
 	async def reddit(self, ctx):
 		""" Commands related to reddit """
 		if ctx.invoked_subcommand is None:
-			await self.bot.say('commands available to reddit: \n ~reddit pic &')
+			await self.bot.say('That command does not exist in this group')
 
 	@reddit.command(pass_context=True)
 	async def pic(self, ctx, sub: str):

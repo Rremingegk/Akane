@@ -5,7 +5,7 @@ from functools import wraps
 def exists_check(func):
 	@wraps(func)
 	async def wrapped(self, ctx, *args):
-		if not self.player:
+		if not self.players[ctx.message.server.id]:
 			return await self.bot.say("Radio isn't running, start with ~radio start <voice channel>")
 		return await func(self, ctx, *args)
 	return wrapped
@@ -14,7 +14,7 @@ def exists_check(func):
 class Radio:
 	def __init__(self, bot):
 		self.bot = bot
-		self.player = None
+		self.players = {}
 
 	@commands.group(pass_context=True)
 	async def radio(self, ctx):
@@ -30,8 +30,8 @@ class Radio:
 		"""
 		voice = await self.bot.join_voice_channel(channel)
 		# opus stream http://listen.moe:9999/opus use for better bitrate maybe?
-		self.player = voice.create_ffmpeg_player("http://listen.moe/stream", headers={"User-Agent": 'Discord bot Akane'})
-		self.player.start()
+		self.players[ctx.message.server.id] = voice.create_ffmpeg_player("http://listen.moe/stream", headers={"User-Agent": 'Discord bot Akane'})
+		self.players[ctx.message.server.id].start()
 
 	@radio.command(pass_context=True)
 	@exists_check
@@ -40,7 +40,7 @@ class Radio:
 		**Example**:
 		~radio pause
 		"""
-		self.player.pause()
+		self.players[ctx.message.server.id].pause()
 
 	@radio.command(pass_context=True)
 	@exists_check
@@ -49,7 +49,7 @@ class Radio:
 		**Example**:
 		~radio resume
 		"""
-		self.player.resume()
+		self.players[ctx.message.server.id].resume()
 
 
 	@radio.command(pass_context=True)
@@ -59,7 +59,7 @@ class Radio:
 		**Example**:
 		~radio volume 50
 		"""
-		self.player.volume = vol/100
+		self.players[ctx.message.server.id].volume = vol/100
 
 	@radio.command(pass_context=True)
 	@exists_check
@@ -69,7 +69,7 @@ class Radio:
 		~radio stop
 		"""
 		voice = self.bot.voice_client_in(ctx.message.server)
-		self.player = None
+		self.players[ctx.message.server.id] = None
 		await voice.disconnect()
 
 	@radio.command(pass_context=True)

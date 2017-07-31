@@ -25,11 +25,13 @@ class Akane:
 	@akane.command(pass_context=True)
 	@is_creator
 	async def servers(self, ctx):
+		""" Command to retrieve the amount of servers Akane is in """
 		await self.bot.say(f'This bot is in {len(self.bot.servers)} servers')
 
 	@akane.command(pass_context=True)
 	@is_creator
 	async def avatar(self, ctx, link: str):
+		""" Command to change the avatar of akane (~akane avatar <url>)"""
 		try:
 			with urllib.request.urlopen(link) as response:
 				img = response.read()
@@ -40,6 +42,7 @@ class Akane:
 	@akane.command(pass_context=True)
 	@is_creator
 	async def name(self, ctx, name: str):
+		""" Command to change the name of akane (~akane name <name>) """
 		try:
 			await self.bot.edit_profile(username=name)
 		except Exception as e:
@@ -48,8 +51,8 @@ class Akane:
 	@akane.command(pass_context=True)
 	@is_creator
 	async def status(self, ctx):
+		""" Command to change the status of akan (~akane status <game>) """
 		status = " ".join(ctx.message.content.split(" ")[2:])
-		print(status)
 		try:
 			await self.bot.change_presence(game=discord.Game(name=status))
 		except Exception as e:
@@ -58,6 +61,7 @@ class Akane:
 	@akane.command(pass_context=True)
 	@is_creator
 	async def exit(self, ctx):
+		""" Command to exit the bot """
 		await self.bot.say("Logging out..")
 		await self.bot.logout()
 
