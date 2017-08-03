@@ -26,7 +26,8 @@ class Akane:
 	@is_creator
 	async def servers(self, ctx):
 		""" Command to retrieve the amount of servers Akane is in """
-		await self.bot.say(f'This bot is in {len(self.bot.servers)} servers')
+		for item in self.bot.servers:
+			await self.bot.say(f'{item.name} with {item.member_count} members ')
 
 	@akane.command(pass_context=True)
 	@is_creator
