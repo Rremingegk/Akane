@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from discord.opus import OpusNotLoaded
 from functools import wraps
 
 def exists_check(func):
@@ -29,7 +30,7 @@ class Radio:
 		~radio start <channel>
 		"""
 		voice = await self.bot.join_voice_channel(channel)
-		# opus stream http://listen.moe:9999/opus use for better bitrate maybe?
+		voice.encoder_options(sample_rate=48000, channels=2)
 		self.players[ctx.message.server.id] = voice.create_ffmpeg_player("http://listen.moe/stream", headers={"User-Agent": 'Discord bot Akane'})
 		self.players[ctx.message.server.id].start()
 
