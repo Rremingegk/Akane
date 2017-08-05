@@ -2,6 +2,9 @@ import discord
 from discord.ext import commands
 from discord.opus import OpusNotLoaded
 from functools import wraps
+import asyncio
+import websockets
+import json
 
 def exists_check(func):
 	@wraps(func)
@@ -11,11 +14,21 @@ def exists_check(func):
 		return await func(self, ctx, *args)
 	return wrapped
 
+json_data = None
+
+async def get_info():
+	global json_data
+	async with websockets.connect('wss://listen.moe/api/v2/socket') as ws:
+		data = await ws.recv()
+		json_data = json.loads(data)
+
+
 
 class Radio:
 	def __init__(self, bot):
 		self.bot = bot
 		self.players = {}
+		#self.loop = asyncio.get_event_loop()
 
 	@commands.group(pass_context=True)
 	async def radio(self, ctx):
@@ -76,7 +89,25 @@ class Radio:
 	@radio.command(pass_context=True)
 	@exists_check
 	async def song(self, ctx):
-		await self.bot.say("Not added yet.")
+		future = asyncio.run_coroutine_threadsafe(get_info(), self.bot.loop)
+
+		anime_name = 'None' if json_data['anime_name'] is '' else json_data['anime_name']
+		
+		await self.bot.say(embed=discord.Embed(
+			colour=discord.Colour.red(), 
+		).add_field(
+			name='Song',
+			value=json_data['song_name']
+		).add_field(
+			name='Artist',
+			value=json_data['artist_name']
+		).add_field(
+			name='Anime',
+			value=anime_name
+		).add_field(
+			name='ID',
+			value=json_data['song_id']
+		))
 
 
 
