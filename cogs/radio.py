@@ -31,7 +31,7 @@ class Radio:
 		"""
 		voice = await self.bot.join_voice_channel(channel)
 		voice.encoder_options(sample_rate=48000, channels=2)
-		self.players[ctx.message.server.id] = voice.create_ffmpeg_player("http://listen.moe/stream", headers={"User-Agent": 'Discord bot Akane'})
+		self.players[ctx.message.server.id] = voice.create_ffmpeg_player("http://listen.moe/opus", headers={"User-Agent": 'Discord bot Akane'})
 		self.players[ctx.message.server.id].start()
 
 	@radio.command(pass_context=True)
