@@ -1,5 +1,5 @@
 websockets==3.3
 requests==2.18.1
-discord.py[voice]==0.16.0
+discord.py[voice]
 praw==5.0.1
 lxml==3.8.0
