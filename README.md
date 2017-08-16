@@ -14,6 +14,7 @@ The prefix for the commands is: '~'
   - stop: stops the radio
   - pause: pauses the radio
   - resume: resumes the radio
+  - song: displays song of radio (still buggy)
 - ~mal
     - manga \<manga\>: searches for the specified manga on MyAnimeList
     - anime \<anime\>: searches for the specified anime on MyAnimeList
