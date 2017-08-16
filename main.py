@@ -7,15 +7,14 @@ from discord.ext.commands import Bot
 import config
 
 command_prefix = '~'
-description = 'My own weeb bot'
+description = 'Bot with osu, mal, kitsu and listen.moe radio commands'
 cogs = ['cogs.osu', 'cogs.mal', 'cogs.reddit', 'cogs.radio', 'cogs.util', 'cogs.kitsu', 'cogs.akane']
 
-#logging.basicConfig(level=logging.INFO, filename='discord.log')
 
 disc_logger = logging.getLogger('discord')
 disc_logger.setLevel(logging.DEBUG)
 disc_handler = logging.FileHandler('discord.log', 'w', 'utf-8')
-#disc_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+disc_handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 disc_logger.addHandler(disc_handler)
 
 logger = logging.getLogger('commands')
@@ -37,7 +36,6 @@ class Akane(Bot):
 			logger = logging.getLogger('commands')
 			logger.debug(f'{ctx.message.author} - {ctx.message.server.name} - {ctx.message.content} - {exception}')
 			
-
 
 if __name__ == '__main__':
 	bot = Akane(command_prefix=command_prefix, description=description)

@@ -22,8 +22,6 @@ async def get_info():
 		data = await ws.recv()
 		json_data = json.loads(data)
 
-
-
 class Radio:
 	def __init__(self, bot):
 		self.bot = bot
@@ -89,6 +87,10 @@ class Radio:
 	@radio.command(pass_context=True)
 	@exists_check
 	async def song(self, ctx):
+		""" Command to show the song currently playing on the listen.moe radio (doesn't work on first try sometimes)
+		**Example**:
+		~radio stop
+		"""
 		future = asyncio.run_coroutine_threadsafe(get_info(), self.bot.loop)
 
 		anime_name = 'None' if json_data['anime_name'] is '' else json_data['anime_name']
