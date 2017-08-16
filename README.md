@@ -1,5 +1,8 @@
 ## Akane
 Akane is a bot built on [discord.py](https://github.com/Rapptz/discord.py) that I made out of boredom and weebness, this bot has a bunch of tools for anime fans.
+
+NOTE: currently offline so no invite link available, feel free to host it yourself.
+
 Also if you were curious Akane refers to Akane Mizuno from Tsuki ga Kirei.
 
 ## Commands
@@ -27,10 +30,6 @@ The prefix for the commands is: '~'
     - about: gives some info about the bot
     - choose \<option1\> \<option2\> \<option3\> (etc..): makes a decision based on the options given 
  
-## Invite link
-https://discordapp.com/oauth2/authorize?client_id=338767027953205258&scope=bot&permissions=103902382
-
-
 ## Requirements
 Not added yet.
 
