@@ -30,8 +30,5 @@ The prefix for the commands is: '~'
 - ~util
     - about: gives some info about the bot
     - choose \<option1\> \<option2\> \<option3\> (etc..): makes a decision based on the options given 
- 
-## Requirements
-Not added yet.
 
 ![alt-text](http://lostinanime.com/wp-content/uploads/2017/04/Tsuki-ga-Kirei-01-13.jpg)
